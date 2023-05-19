@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { TextFieldProps } from './TextField.types';
-import { ErrorIcon } from '../../ui';
 import {
   StyledInput,
   StyledInputLabel,
@@ -16,6 +15,7 @@ export const TextField = ({
   onChange,
   errorText,
   type,
+  ...props
 }: TextFieldProps) => (
   <StyledFormControl variant="standard">
     <StyledInputLabel shrink htmlFor={label}>
@@ -28,6 +28,7 @@ export const TextField = ({
       type={type}
       value={value}
       onChange={onChange}
+      {...props}
     />
     {errorText && (
       <StyledFormHelperText error className="helper-text helper-text--error ">
