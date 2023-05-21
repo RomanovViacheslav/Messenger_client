@@ -2,18 +2,21 @@ import React, { FormEvent, useState, ChangeEvent, useCallback } from 'react';
 import { Box } from '@mui/system';
 import { useFormik } from 'formik';
 import { Button, Link, TextField } from '../../components';
-import { validationSchemas } from './helpers';
 import { initialValues } from './RegistrationForm.constants';
 import { UserCreationEntity } from '../../domains';
+import { useAppDispatch, useAppSelector } from '../../helpers';
+import { nextStep } from './RegistrationFormSlice';
+import { validationSchemas } from './helpers';
 
 export const RegistrationForm = () => {
-  const [step, setStep] = useState(1);
-  const [validationSchema, setValidationSchema] = useState(validationSchemas[0]);
-  const [validationStep1, setValidationStep1] = useState(false);
+  const dispatch = useAppDispatch();
+  const { step, validationSchemaIndex, isLoading, error } = useAppSelector(
+    (state) => state.registration,
+  );
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: validationSchemas[validationSchemaIndex],
     onSubmit: (values: UserCreationEntity) => {
       console.log(values);
     },
@@ -21,11 +24,14 @@ export const RegistrationForm = () => {
 
   const onNextStep = async () => {
     const errors = await formik.validateForm();
-    setValidationStep1(true);
+    formik.setTouched({
+      email: true,
+      login: true,
+      name: true,
+      lastName: true,
+    });
     if (Object.keys(errors).length === 0) {
-      const nextStep = step + 1;
-      setStep(nextStep);
-      setValidationSchema(validationSchemas[1]);
+      dispatch(nextStep());
     }
   };
 
@@ -48,10 +54,7 @@ export const RegistrationForm = () => {
             onChange={formik.handleChange}
             value={formik.values.email}
             onBlur={formik.handleBlur}
-            error={
-              (Boolean(formik.errors.email) && formik.touched.email) ||
-              (validationStep1 && Boolean(formik.errors.email))
-            }
+            error={Boolean(formik.errors.email) && formik.touched.email}
             errorText={(formik.touched.email && formik.errors.email) || formik.errors.email}
           />
           <TextField
@@ -62,10 +65,7 @@ export const RegistrationForm = () => {
             name="login"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={
-              (Boolean(formik.errors.login) && formik.touched.login) ||
-              (validationStep1 && Boolean(formik.errors.login))
-            }
+            error={Boolean(formik.errors.login) && formik.touched.login}
             errorText={(formik.touched.login && formik.errors.login) || formik.errors.login}
           />
           <TextField
@@ -76,10 +76,7 @@ export const RegistrationForm = () => {
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={
-              (Boolean(formik.errors.name) && formik.touched.name) ||
-              (validationStep1 && Boolean(formik.errors.name))
-            }
+            error={Boolean(formik.errors.name) && formik.touched.name}
             errorText={(formik.touched.name && formik.errors.name) || formik.errors.name}
           />
           <TextField
@@ -90,10 +87,7 @@ export const RegistrationForm = () => {
             value={formik.values.lastName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={
-              (Boolean(formik.errors.lastName) && formik.touched.lastName) ||
-              (validationStep1 && Boolean(formik.errors.lastName))
-            }
+            error={Boolean(formik.errors.lastName) && formik.touched.lastName}
             errorText={
               (formik.touched.lastName && formik.errors.lastName) || formik.errors.lastName
             }

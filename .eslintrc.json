@@ -16,6 +16,7 @@
   "plugins": ["react", "@typescript-eslint"],
   "ignorePatterns": ["config-overrides.js", "node_modules", "build", "*.d.ts"],
   "rules": {
+    "no-param-reassign": "off",
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "import/extensions": "off",
