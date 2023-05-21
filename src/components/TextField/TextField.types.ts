@@ -8,7 +8,8 @@ export interface TextFieldProps extends InputBaseProps {
   containerClassName?: string;
   value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  errorText?: string;
+  errorText?: string ;
+  error?: boolean;
 }
 
 export interface StyledTextFieldProps {

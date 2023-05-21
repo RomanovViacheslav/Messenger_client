@@ -15,6 +15,7 @@ export const TextField = ({
   onChange,
   errorText,
   type,
+  error,
   ...props
 }: TextFieldProps) => (
   <StyledFormControl variant="standard">
@@ -23,15 +24,15 @@ export const TextField = ({
     </StyledInputLabel>
     <StyledInput
       placeholder={placeholder}
-      error={!!errorText}
       id={label}
       type={type}
       value={value}
       onChange={onChange}
+      error={error}
       {...props}
     />
-    {errorText && (
-      <StyledFormHelperText error className="helper-text helper-text--error ">
+    {error && (
+      <StyledFormHelperText error>
         {errorText}
       </StyledFormHelperText>
     )}
