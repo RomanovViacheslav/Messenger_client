@@ -1,1 +1,1 @@
-export * from './ClickCount.model';
+export * from './User.model';

@@ -2,10 +2,10 @@ import React, { FormEvent, useState, ChangeEvent, useCallback } from 'react';
 import { Box } from '@mui/system';
 import { useFormik } from 'formik';
 import { Button, Link, TextField } from '../../components';
-import { initialValues } from './RegistrationForm.constants';
+import { INITIAL_VALUES } from './RegistrationForm.constants';
 import { UserCreationEntity } from '../../domains';
 import { useAppDispatch, useAppSelector } from '../../helpers';
-import { nextStep } from './RegistrationFormSlice';
+import { nextStep, registerUser } from './slice/RegistrationFormSlice';
 import { validationSchemas } from './helpers';
 
 export const RegistrationForm = () => {
@@ -15,10 +15,10 @@ export const RegistrationForm = () => {
   );
 
   const formik = useFormik({
-    initialValues,
+    initialValues: INITIAL_VALUES,
     validationSchema: validationSchemas[validationSchemaIndex],
     onSubmit: (values: UserCreationEntity) => {
-      console.log(values);
+      dispatch(registerUser(values));
     },
   });
 

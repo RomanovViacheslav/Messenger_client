@@ -1,4 +1,4 @@
-import { ChangeEventHandler, HTMLInputTypeAttribute } from 'react';
+import { ChangeEventHandler } from 'react';
 import { InputBaseProps } from '@mui/material';
 import { ThemeType } from '../../theme';
 
@@ -8,11 +8,11 @@ export interface TextFieldProps extends InputBaseProps {
   containerClassName?: string;
   value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  errorText?: string ;
+  errorText?: string;
   error?: boolean;
 }
 
 export interface StyledTextFieldProps {
-  type?: string,
+  type?: string;
   theme?: ThemeType;
 }
