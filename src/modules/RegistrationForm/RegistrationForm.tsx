@@ -1,6 +1,7 @@
 import React, { FormEvent, useState, ChangeEvent, useCallback } from 'react';
 import { Box } from '@mui/system';
 import { useFormik } from 'formik';
+import { Typography } from '@mui/material';
 import { Button, Link, TextField } from '../../components';
 import { INITIAL_VALUES } from './RegistrationForm.constants';
 import { UserCreationEntity } from '../../domains';
@@ -140,8 +141,13 @@ export const RegistrationForm = () => {
                 : formik.errors.phoneNumber
             }
           />
+          {error && (
+            <Typography variant="body1" color="error">
+              {error}
+            </Typography>
+          )}
           <Box mt="90px">
-            <Button buttonText="Submit" type="submit" />
+            <Button buttonText="Submit" disabled={isLoading} type="submit" />
           </Box>
           <Link href="/">Sign in</Link>
         </>

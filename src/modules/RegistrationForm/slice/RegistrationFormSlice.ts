@@ -14,15 +14,16 @@ const initialState: RegistrationFormState = {
 
 export const registerUser = createAsyncThunk(
   'registration/registerUser',
-  async (data: UserCreationEntity) => {
+  async (data: UserCreationEntity, { rejectWithValue }) => {
     try {
       const response = await UserAgentInstance.createUser(mapToExternalCreateUser(data));
       console.log(response);
       return response;
-    } catch (error) {
-      console.log(error);
-
-      throw new Error('error.message');
+    } catch (err) {
+      if (err instanceof Error) {
+        throw new Error(err.message);
+      }
+      throw new Error('Ошибка');
     }
   },
 );
@@ -48,8 +49,7 @@ const registrationSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
-        // доработать ошибку
-        state.error = 'ошибка';
+        state.error = action.error.message ?? 'Ошибка';
       });
   },
 });
