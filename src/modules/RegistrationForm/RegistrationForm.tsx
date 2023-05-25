@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ChangeEvent, useCallback } from 'react';
+import React from 'react';
 import { Box } from '@mui/system';
 import { useFormik } from 'formik';
 import { Typography } from '@mui/material';
@@ -8,6 +8,7 @@ import { UserCreationEntity } from '../../domains';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { nextStep, registerUser } from './slice/RegistrationFormSlice';
 import { validationSchemas } from './helpers';
+import { PATHS } from '../../constants';
 
 export const RegistrationForm = () => {
   const dispatch = useAppDispatch();
@@ -96,7 +97,7 @@ export const RegistrationForm = () => {
           <Box mt="90px">
             <Button buttonText="Next" type="button" onClick={onNextStep} />
           </Box>
-          <Link href="/">Sign in</Link>
+          <Link to={PATHS.LOGIN}>Sign in</Link>
         </>
       )}
 
@@ -142,14 +143,14 @@ export const RegistrationForm = () => {
             }
           />
           {error && (
-            <Typography variant="body1" color="error">
+            <Typography variant="body2" color="error">
               {error}
             </Typography>
           )}
           <Box mt="90px">
             <Button buttonText="Submit" disabled={isLoading} type="submit" />
           </Box>
-          <Link href="/">Sign in</Link>
+          <Link to={PATHS.LOGIN}>Sing in</Link>
         </>
       )}
     </Box>
