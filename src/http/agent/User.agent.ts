@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { BasicAgent } from './Basic.agent';
-import { CreateUserRequest, CreateUserResponseSuccess } from '../model';
+import { CreateUserRequest, CreateUserResponseSuccess, loginUserRequest, loginUserResponseSuccess } from '../model';
 
 const BACKEND_URL = 'http://localhost:8000';
 
@@ -14,9 +14,19 @@ export class UserAgent extends BasicAgent {
       const { data } = await this._http.post('/users/register', query);
       return data;
     } catch (error: unknown) {
-      console.log(error);
       if (error instanceof AxiosError && error.response && 'err' in error.response.data) {
-        console.log(error.response.data.err);
+        throw new Error(error.response.data.err);
+      }
+      throw new Error((error as Error).message);
+    }
+  }
+
+  async loginUser(query: loginUserRequest): Promise<loginUserResponseSuccess> {
+    try {
+      const { data } = await this._http.post('/users/login', query);
+      return data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response && 'err' in error.response.data) {
         throw new Error(error.response.data.err);
       }
       throw new Error((error as Error).message);

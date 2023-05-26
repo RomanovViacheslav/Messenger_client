@@ -19,3 +19,12 @@ export interface CreateUserResponseSuccess {
 export interface CreateUserResponseError {
   err: string;
 }
+
+export interface loginUserRequest {
+  email: string;
+  password: string;
+}
+
+export interface loginUserResponseSuccess {
+  jwt: string;
+}
