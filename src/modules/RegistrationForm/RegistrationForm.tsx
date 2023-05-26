@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import { useFormik } from 'formik';
 import { Typography } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Link, TextField } from '../../components';
 import { INITIAL_VALUES } from './RegistrationForm.constants';
 import { UserCreationEntity } from '../../domains';
 import { useAppDispatch, useAppSelector } from '../../helpers';
-import { nextStep, registerUser } from './slice/RegistrationFormSlice';
+import { nextStep, registerReset, registerUser } from './slice';
 import { validationSchemas } from './helpers';
 import { PATHS } from '../../constants';
 
 export const RegistrationForm = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
-  const { step, validationSchemaIndex, isLoading, error } = useAppSelector(
+  const { step, validationSchemaIndex, isLoading, error, isSuccess } = useAppSelector(
     (state) => state.registration,
   );
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/login');
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    dispatch(registerReset());
+  }, [location]);
 
   const formik = useFormik({
     initialValues: INITIAL_VALUES,

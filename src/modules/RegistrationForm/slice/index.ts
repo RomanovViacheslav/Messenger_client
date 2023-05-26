@@ -1,1 +1,1 @@
-export { default as registrationSlice, nextStep } from './RegistrationFormSlice';
+export { default as registrationSlice, nextStep, registerReset, registerUser } from './RegistrationFormSlice';

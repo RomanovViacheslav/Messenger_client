@@ -3,4 +3,5 @@ export interface RegistrationFormState {
   validationSchemaIndex: number;
   isLoading: boolean;
   error: string | null;
+  isSuccess: boolean;
 }

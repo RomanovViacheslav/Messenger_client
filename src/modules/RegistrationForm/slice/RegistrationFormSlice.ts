@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { log } from 'console';
 import { RegistrationFormState } from '../RegistrationForm.types';
 import { UserAgentInstance } from '../../../http';
 import { mapToExternalCreateUser } from '../helpers';
@@ -10,6 +9,7 @@ const initialState: RegistrationFormState = {
   validationSchemaIndex: 0,
   isLoading: false,
   error: '',
+  isSuccess: false,
 };
 
 export const registerUser = createAsyncThunk(
@@ -36,6 +36,9 @@ const registrationSlice = createSlice({
       state.step += 1;
       state.validationSchemaIndex += 1;
     },
+    registerReset: (state) => {
+      Object.assign(state, initialState);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -45,7 +48,7 @@ const registrationSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state) => {
         state.isLoading = false;
-        // Реализовать очистку формы и переход на другую страницу после успешной регистрации
+        state.isSuccess = true;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -54,5 +57,5 @@ const registrationSlice = createSlice({
   },
 });
 
-export const { nextStep } = registrationSlice.actions;
+export const { nextStep, registerReset } = registrationSlice.actions;
 export default registrationSlice.reducer;
