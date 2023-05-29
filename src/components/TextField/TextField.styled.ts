@@ -2,23 +2,21 @@ import { InputBase, InputLabel, FormHelperText, FormControl } from '@mui/materia
 import styled from '@emotion/styled';
 import { StyledTextFieldProps } from './TextField.types';
 
-export const StyledInput = styled(InputBase)<StyledTextFieldProps>(({ theme, type }) => ({
-    'label + &': {
-
-    },
-    '& .MuiInputBase-input': {
+export const StyledInput = styled(InputBase)<StyledTextFieldProps>(({ theme, type, search }) => ({
+  'label + &': {},
+  '& .MuiInputBase-input': {
     position: 'relative',
-     marginTop: 8,
-     background: theme.palette.primary.dark,
-     borderRadius: 5,
-     height: 33,
-     padding: 10,
-     boxSizing: 'border-box',
-      },
-    '&.Mui-error .MuiInputBase-input': {
-      color: type === 'password' ? theme.palette.error.main : theme.palette.text.primary,
-    },
-  }));
+    marginTop: search ? 0 : 8,
+    background: search ? theme.palette.primary.main : theme.palette.primary.dark,
+    borderRadius: 5,
+    height: 33,
+    padding: 10,
+    boxSizing: 'border-box',
+  },
+  '&.Mui-error .MuiInputBase-input': {
+    color: type === 'password' ? theme.palette.error.main : theme.palette.text.primary,
+  },
+}));
 
 export const StyledInputLabel = styled(InputLabel)<StyledTextFieldProps>(({ theme }) => ({
   position: 'static',
@@ -30,19 +28,20 @@ export const StyledInputLabel = styled(InputLabel)<StyledTextFieldProps>(({ them
   '&.Mui-focused': {
     color: theme.palette.text.secondary,
   },
-
 }));
 
-export const StyledFormHelperText = styled(FormHelperText)<StyledTextFieldProps>(({ theme }) => ({
-    marginTop: 7,
-    fontWeight: 400,
-    fontSize: 10,
-    lineHeight: '8px',
-    color: theme.palette.error.main,
-  }));
+export const StyledFormHelperText = styled(FormHelperText)<StyledTextFieldProps>(
+  ({ theme, search }) => ({
+  marginTop: search ? 0 : 7,
+  fontWeight: 400,
+  fontSize: 10,
+  lineHeight: '8px',
+  color: theme.palette.error.main,
+}));
 
-export const StyledFormControl = styled(FormControl)<StyledTextFieldProps>(({ theme }) => ({
+export const StyledFormControl = styled(FormControl)<StyledTextFieldProps>(({ theme, search }) => ({
+  width: '100%',
   '&:last-child': {
-    marginBottom: '110px',
+    marginBottom: search ? 0 : '110px',
   },
-  }));
+}));

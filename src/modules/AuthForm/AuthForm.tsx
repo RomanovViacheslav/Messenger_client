@@ -17,8 +17,6 @@ export const AuthForm = () => {
     initialValues: INITIAL_VALUES,
     validationSchema,
     onSubmit: (values) => {
-      console.log('ssss');
-
       dispatch(loginUser(values));
     },
   });
@@ -62,7 +60,7 @@ export const AuthForm = () => {
       <Box mt="90px">
         <Button buttonText="Submit" type="submit" disabled={isLoading} />
       </Box>
-      <Link to={PATHS.MAIN}>Create account</Link>
+      <Link to={PATHS.REGISTER}>Create account</Link>
     </Box>
   );
 };

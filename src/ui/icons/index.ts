@@ -1,1 +1,1 @@
-export * from './ErrorIcon';
+export * from './ArrowIcon';

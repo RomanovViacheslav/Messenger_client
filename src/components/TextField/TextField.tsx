@@ -9,11 +9,23 @@ import {
 } from './TextField.styled';
 
 export const TextField = memo(
-  ({ label, placeholder, value, onChange, errorText, type, error, ...props }: TextFieldProps) => (
+  ({
+    label,
+    placeholder,
+    value,
+    onChange,
+    errorText,
+    type,
+    error,
+    search,
+    ...props
+  }: TextFieldProps) => (
     <StyledFormControl variant="standard">
-      <StyledInputLabel shrink htmlFor={label}>
-        {label}
-      </StyledInputLabel>
+      {!search && (
+        <StyledInputLabel shrink htmlFor={label}>
+          {label}
+        </StyledInputLabel>
+      )}
       <StyledInput
         placeholder={placeholder}
         id={label}
@@ -21,6 +33,7 @@ export const TextField = memo(
         value={value}
         onChange={onChange}
         error={error}
+        search={search}
         {...props}
       />
       {error && <StyledFormHelperText error>{errorText}</StyledFormHelperText>}

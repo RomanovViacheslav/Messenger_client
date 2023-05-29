@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AuthFormState } from '../AuthForm.types';
 import { UserLoginEntity } from '../../../domains';
 import { UserAgentInstance } from '../../../http';
+import { USER_LOCALSTORAGE_KEY } from '../../../constants';
 
 const initialState: AuthFormState = {
   isLoading: false,
@@ -13,7 +14,8 @@ export const loginUser = createAsyncThunk(
   async (data: UserLoginEntity, { rejectWithValue }) => {
     try {
       const response = await UserAgentInstance.loginUser(data);
-      console.log(response);
+      console.log(response.jwt);
+      localStorage.setItem(USER_LOCALSTORAGE_KEY, response.jwt);
       return response;
     } catch (err) {
       if (err instanceof Error) {
