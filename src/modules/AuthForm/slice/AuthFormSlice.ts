@@ -3,6 +3,7 @@ import { AuthFormState } from '../AuthForm.types';
 import { UserLoginEntity } from '../../../domains';
 import { UserAgentInstance } from '../../../http';
 import { USER_LOCALSTORAGE_KEY } from '../../../constants';
+import { tokenActions } from '../../../shared';
 
 const initialState: AuthFormState = {
   isLoading: false,
@@ -11,11 +12,11 @@ const initialState: AuthFormState = {
 
 export const loginUser = createAsyncThunk(
   'login/loginUser',
-  async (data: UserLoginEntity, { rejectWithValue }) => {
+  async (data: UserLoginEntity, { dispatch }) => {
     try {
       const response = await UserAgentInstance.loginUser(data);
-      console.log(response.jwt);
       localStorage.setItem(USER_LOCALSTORAGE_KEY, response.jwt);
+      dispatch(tokenActions.setAuth());
       return response;
     } catch (err) {
       if (err instanceof Error) {

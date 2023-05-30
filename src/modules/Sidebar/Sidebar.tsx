@@ -1,14 +1,25 @@
 import React from 'react';
-import { Link, TextField } from '../../components';
+import { Button, Link, TextField } from '../../components';
 import { StyledBox, StyledLink } from './Sidebar.styled';
 import { ArrowIcon } from '../../ui';
+import { useAppDispatch } from '../../helpers';
+import { tokenActions } from '../../shared';
 
-export const Sidebar = () => (
-  <StyledBox>
-    <StyledLink to="#">
-      <span>Profile</span>
-      <ArrowIcon />
-    </StyledLink>
-    <TextField type="text" search placeholder="Search" />
-  </StyledBox>
-);
+export const Sidebar = () => {
+  const dispatch = useAppDispatch();
+  return (
+    <StyledBox>
+      <StyledLink to="#">
+        <span>Profile</span>
+        <ArrowIcon />
+      </StyledLink>
+      <TextField type="text" search placeholder="Search" />
+      <Button
+        buttonText="Выход"
+        onClick={() => {
+          dispatch(tokenActions.logout());
+        }}
+      />
+    </StyledBox>
+  );
+};

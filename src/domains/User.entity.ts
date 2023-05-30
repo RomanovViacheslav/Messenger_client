@@ -20,3 +20,7 @@ export interface UserLoginEntity {
   email: string;
   password: string;
 }
+
+export interface userToken {
+  JWT: string;
+}
