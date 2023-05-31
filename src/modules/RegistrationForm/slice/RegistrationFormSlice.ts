@@ -17,7 +17,6 @@ export const registerUser = createAsyncThunk(
   async (data: UserCreationEntity, { rejectWithValue }) => {
     try {
       const response = await UserAgentInstance.createUser(mapToExternalCreateUser(data));
-      console.log(response);
       return response;
     } catch (err) {
       if (err instanceof Error) {

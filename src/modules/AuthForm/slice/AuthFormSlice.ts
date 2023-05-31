@@ -7,6 +7,7 @@ import { tokenActions } from '../../../shared';
 
 const initialState: AuthFormState = {
   isLoading: false,
+
   error: '',
 };
 
@@ -30,7 +31,11 @@ export const loginUser = createAsyncThunk(
 const loginSlice = createSlice({
   name: 'login',
   initialState,
-  reducers: {},
+  reducers: {
+    loginReset: (state) => {
+      Object.assign(state, initialState);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -39,7 +44,6 @@ const loginSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state) => {
         state.isLoading = false;
-        // Реализовать очистку формы и переход на другую страницу после успешной аутентификации
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;

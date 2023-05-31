@@ -4,6 +4,7 @@ import { StyledBox, StyledLink } from './Sidebar.styled';
 import { ArrowIcon } from '../../ui';
 import { useAppDispatch } from '../../helpers';
 import { tokenActions } from '../../shared';
+import { ChatList } from './components';
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export const Sidebar = () => {
           dispatch(tokenActions.logout());
         }}
       />
+      <ChatList />
     </StyledBox>
   );
 };
