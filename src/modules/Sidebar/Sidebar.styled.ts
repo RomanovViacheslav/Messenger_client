@@ -1,11 +1,18 @@
-import { Box } from '@mui/material';
+import { Box, List } from '@mui/material';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { StyledBoxProps } from './Sidebar.type';
 
+export const StyledList = styled(List)<StyledBoxProps>(({ theme }) => ({
+  padding: 0,
+  paddingTop: 14,
+
+}));
+
 export const StyledBox = styled(Box)<StyledBoxProps>(({ theme }) => ({
   width: '310px',
   padding: '21px 10px',
+  // flexShrink: 0,
 }));
 
 export const StyledLink = styled(Link)({

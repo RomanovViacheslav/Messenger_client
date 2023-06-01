@@ -3,9 +3,5 @@ export const generateColor = (str: string) => {
 
   const hash = str.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const colorIndex = hash % 5;
-
-  console.log(hash);
-  console.log(colorIndex);
-
   return colors[colorIndex];
 };
