@@ -28,3 +28,8 @@ export interface loginUserRequest {
 export interface loginUserResponseSuccess {
   jwt: string;
 }
+
+export interface getAllUserResponseSuccess {
+  id: number;
+  login: string;
+}

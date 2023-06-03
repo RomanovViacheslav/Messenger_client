@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { USER_LOCALSTORAGE_KEY } from '../../constants';
+import { UserAgentInstance } from '../../http';
 
 const initialState = {
   isAuth: false,
@@ -11,15 +12,18 @@ export const tokenSlice = createSlice({
   reducers: {
     setAuth: (state) => {
       state.isAuth = true;
+      UserAgentInstance.setToken(localStorage.getItem(USER_LOCALSTORAGE_KEY));
     },
     initAuth: (state) => {
       if (localStorage.getItem(USER_LOCALSTORAGE_KEY)) {
         state.isAuth = true;
+        UserAgentInstance.setToken(localStorage.getItem(USER_LOCALSTORAGE_KEY));
       }
     },
     logout: (state) => {
       state.isAuth = false;
       localStorage.removeItem(USER_LOCALSTORAGE_KEY);
+      UserAgentInstance.setToken(null);
     },
   },
 });

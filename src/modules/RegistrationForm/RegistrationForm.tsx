@@ -9,7 +9,7 @@ import { UserCreationEntity } from '../../domains';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { nextStep, registerReset, registerUser } from './slice';
 import { validationSchemas } from './helpers';
-import { PATHS } from '../../constants';
+import { PATHS, USER_LOCALSTORAGE_KEY } from '../../constants';
 
 export const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -18,6 +18,8 @@ export const RegistrationForm = () => {
   const { step, validationSchemaIndex, isLoading, error, isSuccess } = useAppSelector(
     (state) => state.registration,
   );
+
+  console.log(localStorage.getItem(USER_LOCALSTORAGE_KEY));
 
   useEffect(() => {
     if (isSuccess) {
