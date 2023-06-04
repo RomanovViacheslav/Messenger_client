@@ -6,6 +6,7 @@ import { StyledBoxProps } from './Sidebar.type';
 export const StyledList = styled(List)<StyledBoxProps>(({ theme }) => ({
   padding: 0,
   paddingTop: 14,
+  margin: '0px -10px',
 
 }));
 
@@ -19,7 +20,6 @@ export const StyledLink = styled(Link)({
   display: 'flex',
   justifyContent: 'end',
   textDecoration: 'none',
-  color: '#9898B0',
   fontWeight: 500,
   fontSize: 12,
   lineHeight: '12px',

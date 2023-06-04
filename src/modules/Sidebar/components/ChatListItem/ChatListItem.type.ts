@@ -1,5 +1,12 @@
+import { ThemeType } from '../../../../theme';
+
 export interface ChatListItemProps {
-  id: string;
+  userId: string;
   login: string;
-  img?: string
+  img?: string;
+}
+
+export interface StyledLinkProps {
+  active?: string;
+  theme?: ThemeType;
 }

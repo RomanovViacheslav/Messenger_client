@@ -24,6 +24,14 @@ export const Router = () => {
           </AuthHoc>
         }
       />
+      <Route
+        path={`${PATHS.MAIN}${PATHS.CHAT}`}
+        element={
+          <AuthHoc>
+            <ChatWindowPage />
+          </AuthHoc>
+        }
+      />
 
       <Route element={<AuthLayout />}>
         <Route

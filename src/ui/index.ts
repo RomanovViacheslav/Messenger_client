@@ -1,2 +1,2 @@
 export { MainLayout, AuthLayout } from './layouts';
-export { ArrowIcon } from './icons';
+export { ArrowIcon, SendMessageIcon } from './icons';
