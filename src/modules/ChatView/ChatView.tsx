@@ -8,7 +8,7 @@ import { useAppSelector } from '../../helpers';
 export const ChatView = () => {
   const { id } = useParams();
   const { users } = useAppSelector((state) => state.sidebar);
-  const filteredUser = users?.filter((user) => user.id === id)[0];
+  const filteredUser = users?.find((user) => user.id === id);
 
   return (
     <StyledBox bgcolor="light">
