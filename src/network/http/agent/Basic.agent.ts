@@ -1,5 +1,4 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { USER_LOCALSTORAGE_KEY } from '../../constants';
 
 export class BasicAgent {
   protected _http: AxiosInstance;

@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { StyledBox } from './ChatView.styled';
 import { FooterChatView, HeaderChatView } from './components';
 import { useAppSelector } from '../../helpers';
+import { webSocketAgent } from '../../network';
 
 export const ChatView = () => {
   const { id } = useParams();
   const { users } = useAppSelector((state) => state.sidebar);
   const filteredUser = users?.find((user) => user.id === id);
+
+  useEffect(() => {
+    webSocketAgent.connect();
+    return () => {
+      webSocketAgent.disconnect();
+    };
+  }, []);
 
   return (
     <StyledBox bgcolor="light">

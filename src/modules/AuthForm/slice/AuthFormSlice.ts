@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AuthFormState } from '../AuthForm.types';
 import { UserLoginEntity } from '../../../domains';
-import { UserAgentInstance } from '../../../http';
 import { USER_LOCALSTORAGE_KEY } from '../../../constants';
 import { tokenActions } from '../../../shared';
+import { UserAgentInstance } from '../../../network';
 
 const initialState: AuthFormState = {
   isLoading: false,

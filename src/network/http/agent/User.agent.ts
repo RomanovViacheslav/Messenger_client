@@ -8,11 +8,9 @@ import {
   loginUserResponseSuccess,
 } from '../model';
 
-const BACKEND_URL = 'http://localhost:8000';
-
 export class UserAgent extends BasicAgent {
   constructor() {
-    super(BACKEND_URL as string, {});
+    super(process.env.REACT_APP_BACKEND_URL as string, {});
   }
 
   async createUser(query: CreateUserRequest): Promise<CreateUserResponseSuccess> {

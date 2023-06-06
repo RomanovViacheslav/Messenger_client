@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SidebarState } from '../Sidebar.type';
 import { UserEntity } from '../../../domains';
-import { UserAgentInstance } from '../../../http';
 import { mapAllUsers } from '../helpers';
+import { UserAgentInstance } from '../../../network';
 
 const initialState: SidebarState = {
   status: 'loading',

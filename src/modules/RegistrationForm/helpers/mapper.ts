@@ -1,5 +1,5 @@
 import { UserCreationEntity } from '../../../domains';
-import { CreateUserRequest } from '../../../http';
+import { CreateUserRequest } from '../../../network';
 
 export const mapToExternalCreateUser = (data: UserCreationEntity): CreateUserRequest => ({
   email: data.email,

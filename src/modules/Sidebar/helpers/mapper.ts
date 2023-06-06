@@ -1,5 +1,5 @@
 import { UserEntity } from '../../../domains';
-import { getAllUserResponseSuccess } from '../../../http';
+import { getAllUserResponseSuccess } from '../../../network';
 
 export const mapAllUsers = (
   users: getAllUserResponseSuccess[],

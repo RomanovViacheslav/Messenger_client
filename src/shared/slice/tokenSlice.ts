@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { USER_LOCALSTORAGE_KEY } from '../../constants';
-import { UserAgentInstance } from '../../http';
+import { UserAgentInstance } from '../../network';
 
 const initialState = {
   isAuth: false,

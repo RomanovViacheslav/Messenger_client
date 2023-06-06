@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RegistrationFormState } from '../RegistrationForm.types';
-import { UserAgentInstance } from '../../../http';
 import { mapToExternalCreateUser } from '../helpers';
 import { UserCreationEntity } from '../../../domains';
+import { UserAgentInstance } from '../../../network';
 
 const initialState: RegistrationFormState = {
   step: 1,
