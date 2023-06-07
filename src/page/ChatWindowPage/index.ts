@@ -1,1 +1,1 @@
-export * from './ChatWindowPage';
+export * from './ChatWindowPage.async';

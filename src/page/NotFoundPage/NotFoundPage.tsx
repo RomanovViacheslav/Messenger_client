@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-export const NotFoundPage = () => (
+const NotFoundPage = () => (
   <Box display="flex" alignItems="center" justifyContent="center">
     <Box textAlign="center">
       <Typography variant="h2" gutterBottom>
@@ -16,3 +16,5 @@ export const NotFoundPage = () => (
     </Box>
   </Box>
 );
+
+export default NotFoundPage;

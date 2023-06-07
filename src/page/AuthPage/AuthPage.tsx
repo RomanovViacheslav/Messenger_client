@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { AuthForm } from '../../modules';
 
-export const AuthPage = () => (
+const AuthPage = () => (
   <>
     <Typography variant="h2" component="h2" mb="20px" textAlign="center">
       Sign in
@@ -10,3 +10,5 @@ export const AuthPage = () => (
     <AuthForm />
   </>
 );
+
+export default AuthPage;

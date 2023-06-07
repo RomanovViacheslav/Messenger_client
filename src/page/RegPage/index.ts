@@ -1,1 +1,1 @@
-export * from './RegPage';
+export * from './RegPage.async';
