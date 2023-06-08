@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { StyledBox } from './ChatView.styled';
 import { FooterChatView, HeaderChatView } from './components';
 import { useAppSelector } from '../../helpers';
-import { webSocketAgent } from '../../network';
+import { ChatMessageAgentInstance } from '../../network';
 
 export const ChatView = () => {
   const { id } = useParams();
@@ -12,9 +12,9 @@ export const ChatView = () => {
   const filteredUser = users?.find((user) => user.id === id);
 
   useEffect(() => {
-    webSocketAgent.connect();
+    ChatMessageAgentInstance.connect();
     return () => {
-      webSocketAgent.disconnect();
+      ChatMessageAgentInstance.disconnect();
     };
   }, []);
 

@@ -2,6 +2,7 @@ import React, { FormEvent, FormEventHandler, memo, useState } from 'react';
 import { IconButton } from '@mui/material';
 import { StyledBox, StyledInput } from './FooterChatView.styled';
 import { SendMessageIcon } from '../../../../ui';
+import { ChatMessageAgentInstance } from '../../../../network';
 
 export const FooterChatView = memo(() => {
   const [value, setValue] = useState('');
@@ -10,7 +11,15 @@ export const FooterChatView = memo(() => {
   };
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(value);
+    async function name() {
+      const jopa = await ChatMessageAgentInstance.createMessage({
+        content: value,
+        senderId: 4,
+        receiverId: 1,
+      });
+      console.log(jopa);
+    }
+    name();
   };
 
   return (

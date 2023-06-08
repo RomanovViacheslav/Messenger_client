@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 
-class WebSocketAgent {
+export class WebSocketAgent {
   private socket: Socket | null = null;
 
   public connect(): void {
@@ -32,5 +32,3 @@ class WebSocketAgent {
     }
   }
 }
-
-export const webSocketAgent = new WebSocketAgent();

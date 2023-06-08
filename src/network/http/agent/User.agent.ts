@@ -6,7 +6,7 @@ import {
   getAllUserResponseSuccess,
   loginUserRequest,
   loginUserResponseSuccess,
-} from '../model';
+} from '../../model';
 
 export class UserAgent extends BasicAgent {
   constructor() {
