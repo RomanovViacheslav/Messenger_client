@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import { Router } from '../router';
 import { theme } from '../theme';
+import { ChatMessageAgentInstance } from '../network';
 
 const App = () => (
   <ErrorBoundary>

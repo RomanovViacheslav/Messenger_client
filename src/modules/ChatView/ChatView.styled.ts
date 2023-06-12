@@ -6,7 +6,14 @@ export const StyledBox = styled(Box)<StyledBoxProps>(({ theme }) => ({
   background: theme.palette.primary.main,
   width: '100%',
   height: '100vh',
+  display: 'grid',
+  gridTemplateRows: '59px 1fr 59px',
+}));
+
+export const StyledBoxMessage = styled(Box)<StyledBoxProps>(({ theme }) => ({
+  width: '100%',
+  padding: 21,
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  gap: '10px',
 }));

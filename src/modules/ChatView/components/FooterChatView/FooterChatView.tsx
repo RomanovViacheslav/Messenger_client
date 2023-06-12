@@ -11,15 +11,16 @@ export const FooterChatView = memo(() => {
   };
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
-    async function name() {
-      const jopa = await ChatMessageAgentInstance.createMessage({
+    ChatMessageAgentInstance.createMessage(
+      {
         content: value,
-        senderId: 4,
-        receiverId: 1,
-      });
-      console.log(jopa);
-    }
-    name();
+        senderId: 1,
+        receiverId: 3,
+      },
+      (message) => {
+        console.log(message);
+      },
+    );
   };
 
   return (

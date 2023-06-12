@@ -2,40 +2,24 @@ import { ChatMessageRequest, ChatMessageResponseSuccess } from '../model';
 import { WebSocketAgent } from './WebSocketAgent';
 
 class ChatMessageAgent extends WebSocketAgent {
-  public createMessage(message: ChatMessageRequest): Promise<ChatMessageResponseSuccess> {
-    return new Promise((resolve, reject) => {
-      this.emit('createMessage', message);
-      this.on('messageCreated', (result) => {
-        resolve(result);
-      });
-      this.on('error', (error) => {
-        reject(error);
-      });
-    });
+  public connect(token: string): void {
+    super.connect(token);
   }
 
-  public getMessagesBySenderId(senderId: number): Promise<ChatMessageResponseSuccess[]> {
-    return new Promise((resolve, reject) => {
-      this.emit('getMessagesBySenderId', senderId);
-      this.on('messages', (messages) => {
-        resolve(messages);
-      });
-      this.on('error', (error) => {
-        reject(error);
-      });
-    });
+  public createMessage(
+    message: ChatMessageRequest,
+    callback: (result: ChatMessageResponseSuccess) => void,
+  ): void {
+    this.emit('createMessage', message);
+    this.on('messageCreated', callback);
   }
 
-  public getMessagesByReceiverId(receiverId: number): Promise<ChatMessageResponseSuccess[]> {
-    return new Promise((resolve, reject) => {
-      this.emit('getMessagesByReceiverId', receiverId);
-      this.on('messages', (messages) => {
-        resolve(messages);
-      });
-      this.on('error', (error) => {
-        reject(error);
-      });
-    });
+  public getMessagesByUsers(
+    receiverId: number,
+    callback: (messages: ChatMessageResponseSuccess[]) => void,
+  ): void {
+    this.emit('getMessagesByUsers', receiverId);
+    this.on('messages', callback);
   }
 }
 

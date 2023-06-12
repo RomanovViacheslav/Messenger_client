@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { registrationSlice, loginSlice, sidebarSlice } from '../modules';
+import { registrationSlice, loginSlice, sidebarSlice, chatViewSlice } from '../modules';
 import { tokenSlice } from '../shared';
 
 export const store = configureStore({
@@ -8,6 +8,7 @@ export const store = configureStore({
     login: loginSlice,
     token: tokenSlice,
     sidebar: sidebarSlice,
+    chat: chatViewSlice,
   },
 });
 

@@ -1,34 +1,41 @@
 import { io, Socket } from 'socket.io-client';
 
 export class WebSocketAgent {
-  private socket: Socket | null = null;
+  private _socket: Socket | null = null;
 
-  public connect(): void {
-    this.socket = io('http://localhost:8000');
+  private _token: string | null = null;
+
+  public connect(token: string): void {
+    this._token = token;
+    this._socket = io('http://localhost:8000', {
+      extraHeaders: {
+        Authorization: `Bearer ${this._token}`,
+      },
+    });
   }
 
   public disconnect(): void {
-    if (this.socket) {
-      this.socket.disconnect();
-      this.socket = null;
+    if (this._socket) {
+      this._socket.disconnect();
+      this._socket = null;
     }
   }
 
   public on(eventName: string, callback: (...args: any[]) => void): void {
-    if (this.socket) {
-      this.socket.on(eventName, callback);
+    if (this._socket) {
+      this._socket.on(eventName, callback);
     }
   }
 
   public off(eventName: string): void {
-    if (this.socket) {
-      this.socket.off(eventName);
+    if (this._socket) {
+      this._socket.off(eventName);
     }
   }
 
   public emit(eventName: string, ...args: any[]): void {
-    if (this.socket) {
-      this.socket.emit(eventName, ...args);
+    if (this._socket) {
+      this._socket.emit(eventName, ...args);
     }
   }
 }
