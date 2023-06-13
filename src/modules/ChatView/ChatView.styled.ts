@@ -8,9 +8,11 @@ export const StyledBox = styled(Box)<StyledBoxProps>(({ theme }) => ({
   height: '100vh',
   display: 'grid',
   gridTemplateRows: '59px 1fr 59px',
+  position: 'relative',
 }));
 
 export const StyledBoxMessage = styled(Box)<StyledBoxProps>(({ theme }) => ({
+  background: theme.palette.primary.main,
   width: '100%',
   padding: 21,
   display: 'flex',

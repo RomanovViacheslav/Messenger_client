@@ -1,30 +1,30 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ChatViewState } from '../ChatView.type';
 import { MessageEntity } from '../../../domains';
-import { ChatMessageAgentInstance } from '../../../network';
-import { mapMessages } from '../helpers';
+import { ChatMessageAgentInstance, ChatMessageResponseSuccess } from '../../../network';
+import { mapMessages, mapOneMessageToClient } from '../helpers';
 
 const initialState: ChatViewState = {
-  message: '',
-  messagesRecipient: [],
+  messages: [],
+  isLoading: false,
 };
-
-// export const createMessage = createAsyncThunk(
-//   'chat/createMessage',
-//   async (message: ChatMessageEntity, { rejectWithValue }) => {
-//     try {
-//       const result = await ChatMessageAgentInstance.createMessage(message);
-//       return result;
-//     } catch (error) {
-//       return rejectWithValue(error);
-//     }
-//   },
-// );
 
 const chatViewSlice = createSlice({
   name: 'chat',
   initialState,
-  reducers: {},
+  reducers: {
+    setMessages: (state, action: PayloadAction<MessageEntity[]>) => {
+      state.messages = action.payload;
+    },
+    addMessage: (state, action: PayloadAction<ChatMessageResponseSuccess>) => {
+        const result = mapOneMessageToClient(action.payload);
+        state.messages.push(result);
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+  },
 });
 
+export const { setMessages, addMessage, setLoading } = chatViewSlice.actions;
 export default chatViewSlice.reducer;

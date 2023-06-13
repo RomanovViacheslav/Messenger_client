@@ -1,6 +1,5 @@
 export interface ChatMessageSendEntity {
   content: string;
-  senderId: string;
   receiverId: string;
 }
 

@@ -8,6 +8,5 @@ export interface ChatMessageResponseSuccess {
 
 export interface ChatMessageRequest {
   content: string;
-  senderId: number;
   receiverId: number;
 }

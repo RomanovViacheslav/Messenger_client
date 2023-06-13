@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { StyledBox, StyledBoxMessage } from './ChatView.styled';
@@ -6,18 +6,20 @@ import { FooterChatView, HeaderChatView, MessageRecipient, MessageSender } from 
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { ChatMessageAgentInstance } from '../../network';
 import { USER_LOCALSTORAGE_KEY } from '../../constants';
+import { addMessage, getMessagesByUsers, sendMessage } from './slice';
+import { mapOneMessageToClient } from './helpers';
 
 export const ChatView = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { users } = useAppSelector((state) => state.sidebar);
-  const { messagesRecipient } = useAppSelector((state) => state.chat);
+  const { messages, isLoading } = useAppSelector((state) => state.chat);
   const filteredUser = users?.find((user) => user.id === id);
 
   useEffect(() => {
     ChatMessageAgentInstance.connect(localStorage.getItem(USER_LOCALSTORAGE_KEY) as string);
     ChatMessageAgentInstance.on('messageCreated', (message) => {
-      console.log(message);
+      dispatch(addMessage(message));
     });
     return () => {
       ChatMessageAgentInstance.disconnect();
@@ -25,11 +27,21 @@ export const ChatView = () => {
   }, []);
 
   useEffect(() => {
-    ChatMessageAgentInstance.getMessagesByUsers(Number(id), (message) => {
-      console.log(message);
-    });
+    if (id) {
+      dispatch(getMessagesByUsers(Number(id)));
+    }
   }, [id]);
 
+  const handleSendMessage = (content: string) => {
+    if (id) {
+      dispatch(
+        sendMessage({
+          content,
+          receiverId: id,
+        }),
+      );
+    }
+  };
   return (
     <StyledBox bgcolor="light">
       {id && filteredUser && <HeaderChatView userId={filteredUser.id} login={filteredUser.login} />}
@@ -41,21 +53,32 @@ export const ChatView = () => {
           alignItems="center"
           height="100%"
         >
-          Выберите чат чтобы отправить сообщение
+          Выберите чат, чтобы отправить сообщение
         </Typography>
       ) : (
         <StyledBoxMessage>
-          <MessageRecipient
-            time="12:00"
-            content="Метод arr.concat создаёт новый массив, в который копирует данные из других массивов и дополнительные значения."
-          />
-          <MessageSender
-            time="12:00"
-            content="Метод arr.concat создаёт новый массив, в который копирует данные из других массивов и дополнительные значения."
-          />
+          {!isLoading &&
+            messages.map((message) => {
+              if (message.senderId !== filteredUser?.id) {
+                return (
+                  <MessageSender
+                    key={message.id}
+                    content={message.content}
+                    time={message.createdAt}
+                  />
+                );
+              }
+              return (
+                <MessageRecipient
+                  key={message.id}
+                  content={message.content}
+                  time={message.createdAt}
+                />
+              );
+            })}
         </StyledBoxMessage>
       )}
-      {id && <FooterChatView />}
+      {id && <FooterChatView onSendMessage={handleSendMessage} />}
     </StyledBox>
   );
 };

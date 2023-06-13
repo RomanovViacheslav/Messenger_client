@@ -6,6 +6,7 @@ export interface StyledBoxProps {
 }
 
 export interface ChatViewState {
-  message: string;
-  messagesRecipient: MessageEntity[];
+  messages: MessageEntity[];
+  isLoading: boolean;
+
 }

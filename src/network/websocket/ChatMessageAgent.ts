@@ -6,12 +6,8 @@ class ChatMessageAgent extends WebSocketAgent {
     super.connect(token);
   }
 
-  public createMessage(
-    message: ChatMessageRequest,
-    callback: (result: ChatMessageResponseSuccess) => void,
-  ): void {
+  public createMessage(message: ChatMessageRequest): void {
     this.emit('createMessage', message);
-    this.on('messageCreated', callback);
   }
 
   public getMessagesByUsers(
