@@ -1,4 +1,4 @@
 export interface MessageProps {
   content: string;
-  time: Date;
+  time: string;
 }

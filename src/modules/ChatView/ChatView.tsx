@@ -2,12 +2,11 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { StyledBox, StyledBoxMessage } from './ChatView.styled';
-import { FooterChatView, HeaderChatView, MessageRecipient, MessageSender } from './components';
+import { FooterChatView, HeaderChatView, MessageList } from './components';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { ChatMessageAgentInstance } from '../../network';
 import { USER_LOCALSTORAGE_KEY } from '../../constants';
 import { addMessage, getMessagesByUsers, sendMessage } from './slice';
-import { mapOneMessageToClient } from './helpers';
 
 export const ChatView = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +14,7 @@ export const ChatView = () => {
   const { users } = useAppSelector((state) => state.sidebar);
   const { messages, isLoading } = useAppSelector((state) => state.chat);
   const filteredUser = users?.find((user) => user.id === id);
+  const messageListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     ChatMessageAgentInstance.connect(localStorage.getItem(USER_LOCALSTORAGE_KEY) as string);
@@ -31,6 +31,12 @@ export const ChatView = () => {
       dispatch(getMessagesByUsers(Number(id)));
     }
   }, [id]);
+
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSendMessage = (content: string) => {
     if (id) {
@@ -56,26 +62,8 @@ export const ChatView = () => {
           Выберите чат, чтобы отправить сообщение
         </Typography>
       ) : (
-        <StyledBoxMessage>
-          {!isLoading &&
-            messages.map((message) => {
-              if (message.senderId !== filteredUser?.id) {
-                return (
-                  <MessageSender
-                    key={message.id}
-                    content={message.content}
-                    time={message.createdAt}
-                  />
-                );
-              }
-              return (
-                <MessageRecipient
-                  key={message.id}
-                  content={message.content}
-                  time={message.createdAt}
-                />
-              );
-            })}
+        <StyledBoxMessage ref={messageListRef}>
+          {!isLoading && <MessageList messages={messages} filteredUser={filteredUser} />}
         </StyledBoxMessage>
       )}
       {id && <FooterChatView onSendMessage={handleSendMessage} />}

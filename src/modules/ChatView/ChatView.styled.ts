@@ -14,8 +14,10 @@ export const StyledBox = styled(Box)<StyledBoxProps>(({ theme }) => ({
 export const StyledBoxMessage = styled(Box)<StyledBoxProps>(({ theme }) => ({
   background: theme.palette.primary.main,
   width: '100%',
+  height: '100%',
   padding: 21,
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
+  overflowY: 'auto',
 }));

@@ -1,8 +1,6 @@
 import React, { FormEvent, FormEventHandler, memo, useState } from 'react';
-import { IconButton } from '@mui/material';
 import { StyledBox, StyledIconButton, StyledInput } from './FooterChatView.styled';
 import { SendMessageIcon } from '../../../../ui';
-import { ChatMessageAgentInstance } from '../../../../network';
 import { FooterChatViewProps } from './FooterChatView.type';
 
 export const FooterChatView = memo(({ onSendMessage }: FooterChatViewProps) => {
@@ -12,8 +10,24 @@ export const FooterChatView = memo(({ onSendMessage }: FooterChatViewProps) => {
   };
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    onSendMessage(value);
-    setValue('');
+    if (value.trim() !== '') {
+      onSendMessage(value);
+      setValue('');
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && event.ctrlKey) {
+      // eslint-disable-next-line prefer-template
+      setValue(value + '\n');
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+
+      if (value.trim() !== '') {
+        onSendMessage(value);
+        setValue('');
+      }
+    }
   };
 
   return (
@@ -22,6 +36,7 @@ export const FooterChatView = memo(({ onSendMessage }: FooterChatViewProps) => {
         value={value}
         onChange={handleMessageChange}
         placeholder="Message..."
+        onKeyDown={handleKeyDown}
         fullWidth
         multiline
       />

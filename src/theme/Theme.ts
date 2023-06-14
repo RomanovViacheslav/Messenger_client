@@ -76,9 +76,39 @@ const breakpoints = {
   },
 };
 
+const ScrollbarTheme = {
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          '& ::-webkit-scrollbar': {
+            width: '10px',
+          },
+          '& ::-webkit-scrollbar-track': {
+            background: ColorTheme.palette.primary.dark,
+          },
+          '& ::-webkit-scrollbar-thumb': {
+            background: ColorTheme.palette.secondary.main,
+            borderRadius: '4px',
+          },
+          '& ::-webkit-scrollbar-thumb:hover': {
+            background: ColorTheme.palette.secondary.light,
+          },
+        },
+      },
+    },
+  },
+};
+
 const spacing = 2;
 
-const combinedTheme = { ...ColorTheme, ...TypographyTheme, breakpoints, spacing };
+const combinedTheme = {
+  ...ColorTheme,
+  ...TypographyTheme,
+  ...ScrollbarTheme,
+  breakpoints,
+  spacing,
+};
 
 export const theme = createTheme(combinedTheme);
 
