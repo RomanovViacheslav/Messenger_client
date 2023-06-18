@@ -5,17 +5,29 @@ import { StyledBox, StyledLink, StyledList } from './Sidebar.styled';
 import { ArrowIcon } from '../../ui';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { ChatListItem } from './components';
-import { getAllChats } from './slice/SidebarSlice';
 import { tokenActions } from '../../shared';
 import { theme } from '../../theme';
+import { ChatMessageAgentInstance } from '../../network';
+import { getAllChats, processLastMessage } from './slice';
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
-  const { users, status } = useAppSelector((state) => state.sidebar);
+  const { users, status, isLastMessage } = useAppSelector((state) => state.sidebar);
+  const isConnected = useAppSelector((state) => state.socket.connected);
 
   useEffect(() => {
     dispatch(getAllChats());
   }, []);
+
+  useEffect(() => {
+    ChatMessageAgentInstance.on('messageCreated', (message) => {
+      dispatch(processLastMessage(message));
+    });
+    ChatMessageAgentInstance.getLastMessages();
+    ChatMessageAgentInstance.on('lastMessage', (messages) => {
+      dispatch(processLastMessage(messages));
+    });
+  }, [isConnected]);
 
   return (
     <StyledBox>
@@ -32,7 +44,7 @@ export const Sidebar = () => {
           dispatch(tokenActions.logout());
         }}
       />
-      {status === 'loading' ? (
+      {!isLastMessage ? (
         <Loader />
       ) : (
         <StyledList>

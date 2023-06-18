@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import { ChatView, Sidebar } from '../../modules';
+import { ChatMessageAgentInstance } from '../../network';
+import { USER_LOCALSTORAGE_KEY } from '../../constants';
+import { useAppDispatch, useAppSelector } from '../../helpers';
+import { connect, disconnect } from '../../shared';
 
-const ChatWindowPage = () => (
-  <Box display="flex" justifyContent="space-between">
-    <Sidebar />
-    <ChatView />
-  </Box>
-);
+const ChatWindowPage = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(connect());
+    return () => {
+      dispatch(disconnect());
+    };
+  }, []);
+
+  return (
+    <Box display="flex" justifyContent="space-between">
+      <Sidebar />
+      <ChatView />
+    </Box>
+  );
+};
 
 export default ChatWindowPage;

@@ -1,34 +1,28 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SidebarState } from '../Sidebar.type';
-import { UserEntity } from '../../../domains';
-import { mapAllUsers } from '../helpers';
-import { UserAgentInstance } from '../../../network';
+
+import { getAllChats } from './SidebarThunk';
 
 const initialState: SidebarState = {
   status: 'loading',
   error: '',
   users: null,
+  lastMessages: {},
+  isLastMessage: false,
 };
-
-export const getAllChats = createAsyncThunk(
-  'sidebar/getAllChats',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await UserAgentInstance.getAllUser();
-      return mapAllUsers(response);
-    } catch (err) {
-      if (err instanceof Error) {
-        throw new Error(err.message);
-      }
-      throw new Error('Ошибка');
-    }
-  },
-);
 
 const sidebarSlice = createSlice({
   name: 'sidebar',
   initialState,
-  reducers: {},
+  reducers: {
+    setLastMessage: (state, action) => {
+      const { userId, lastMessage } = action.payload;
+      state.lastMessages[userId] = lastMessage;
+    },
+    isLastMessage: (state) => {
+      state.isLastMessage = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllChats.pending, (state) => {
@@ -46,4 +40,5 @@ const sidebarSlice = createSlice({
   },
 });
 
+export const { setLastMessage, isLastMessage } = sidebarSlice.actions;
 export default sidebarSlice.reducer;

@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserAvatar } from '../../../../components';
-import { generateColor } from '../../../../helpers';
+import { generateColor, useAppSelector } from '../../../../helpers';
 import { StyledLink, StyledListItem } from './ChatListItem.styled';
 import { ChatListItemProps } from './ChatListItem.type';
 import { theme } from '../../../../theme';
@@ -12,6 +12,8 @@ export const ChatListItem = memo(({ userId, login, img }: ChatListItemProps) => 
   const { id } = useParams();
   const colorUser = generateColor(login);
   const chatLink = `${PATHS.MAIN}${userId}`;
+
+  const lastMessage = useAppSelector((state) => state.sidebar.lastMessages[Number(userId)]);
   return (
     <StyledListItem active={String(id === userId)}>
       <StyledLink to={chatLink} active={String(id === userId)}>
@@ -25,7 +27,7 @@ export const ChatListItem = memo(({ userId, login, img }: ChatListItemProps) => 
             color={id !== userId ? theme.palette.text.secondary : theme.palette.text.primary}
             marginTop={4}
           >
-            текст последнего сообщения чата
+            {lastMessage || 'напишите сообщение'}
           </Typography>
         </Box>
       </StyledLink>

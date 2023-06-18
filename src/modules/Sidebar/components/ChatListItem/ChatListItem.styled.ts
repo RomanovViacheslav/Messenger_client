@@ -16,4 +16,5 @@ export const StyledLink = styled(Link)<StyledLinkProps>(({ theme, active }) => (
   height: 71,
   borderTop: `2px solid ${theme.palette.primary.main}`,
   padding: '0px 10px',
+  width: '100%',
 }));

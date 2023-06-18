@@ -30,7 +30,7 @@ export const sendMessage = createAsyncThunk(
   async (message: ChatMessageSendEntity) => {
     try {
       const newMessage = mapOneMessageToServer(message);
-      const result = await ChatMessageAgentInstance.createMessage(newMessage);
+      ChatMessageAgentInstance.createMessage(newMessage);
     } catch (error) {
       throw new Error('Failed to send message');
     }

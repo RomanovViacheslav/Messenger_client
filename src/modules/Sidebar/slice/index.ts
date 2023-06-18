@@ -1,1 +1,2 @@
-export { default as sidebarSlice } from './SidebarSlice';
+export { default as sidebarSlice, setLastMessage, isLastMessage } from './SidebarSlice';
+export * from './SidebarThunk';

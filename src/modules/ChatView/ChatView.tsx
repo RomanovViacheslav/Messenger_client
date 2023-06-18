@@ -5,7 +5,6 @@ import { StyledBox, StyledBoxMessage } from './ChatView.styled';
 import { FooterChatView, HeaderChatView, MessageList } from './components';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { ChatMessageAgentInstance } from '../../network';
-import { USER_LOCALSTORAGE_KEY } from '../../constants';
 import { addMessage, getMessagesByUsers, sendMessage } from './slice';
 
 export const ChatView = () => {
@@ -15,22 +14,17 @@ export const ChatView = () => {
   const { messages, isLoading } = useAppSelector((state) => state.chat);
   const filteredUser = users?.find((user) => user.id === id);
   const messageListRef = useRef<HTMLDivElement>(null);
+  const isConnected = useAppSelector((state) => state.socket.connected);
 
   useEffect(() => {
-    ChatMessageAgentInstance.connect(localStorage.getItem(USER_LOCALSTORAGE_KEY) as string);
     ChatMessageAgentInstance.on('messageCreated', (message) => {
       dispatch(addMessage(message));
     });
-    return () => {
-      ChatMessageAgentInstance.disconnect();
-    };
-  }, []);
+  }, [isConnected]);
 
   useEffect(() => {
-    if (id) {
-      dispatch(getMessagesByUsers(Number(id)));
-    }
-  }, [id]);
+    dispatch(getMessagesByUsers(Number(id)));
+  }, [id, isConnected]);
 
   useEffect(() => {
     if (messageListRef.current) {

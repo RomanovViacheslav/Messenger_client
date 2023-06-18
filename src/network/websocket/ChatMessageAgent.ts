@@ -10,12 +10,18 @@ class ChatMessageAgent extends WebSocketAgent {
     this.emit('createMessage', message);
   }
 
+  public getLastMessages(): void {
+    this.emit('getLastMessages');
+  }
+
   public getMessagesByUsers(
     receiverId: number,
-    callback: (messages: ChatMessageResponseSuccess[]) => void,
+    callback?: (messages: ChatMessageResponseSuccess[]) => void,
   ): void {
     this.emit('getMessagesByUsers', receiverId);
-    this.on('messages', callback);
+    if (callback) {
+      this.on('messages', callback);
+    }
   }
 }
 
