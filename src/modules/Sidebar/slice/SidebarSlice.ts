@@ -6,7 +6,7 @@ import { getAllChats } from './SidebarThunk';
 const initialState: SidebarState = {
   status: 'loading',
   error: '',
-  users: null,
+  users: [],
   lastMessages: {},
   isLastMessage: false,
 };
@@ -16,11 +16,36 @@ const sidebarSlice = createSlice({
   initialState,
   reducers: {
     setLastMessage: (state, action) => {
-      const { userId, lastMessage } = action.payload;
-      state.lastMessages[userId] = lastMessage;
+      const { userId, lastMessage, date } = action.payload;
+      state.lastMessages = {
+        ...state.lastMessages,
+        [userId]: {
+          content: lastMessage,
+          date,
+        },
+      };
     },
     isLastMessage: (state) => {
       state.isLastMessage = true;
+    },
+    sortUsers: (state) => {
+      const sortedUsers = [...state.users].sort((a, b) => {
+        const aLastMessage = state.lastMessages[Number(a.id)];
+        const bLastMessage = state.lastMessages[Number(b.id)];
+
+        if (aLastMessage && bLastMessage) {
+          return new Date(bLastMessage.date).getTime() - new Date(aLastMessage.date).getTime();
+        }
+        if (aLastMessage) {
+          return -1;
+        }
+        if (bLastMessage) {
+          return 1;
+        }
+        return 0;
+      });
+
+      state.users = sortedUsers;
     },
   },
   extraReducers: (builder) => {
@@ -40,5 +65,5 @@ const sidebarSlice = createSlice({
   },
 });
 
-export const { setLastMessage, isLastMessage } = sidebarSlice.actions;
+export const { setLastMessage, isLastMessage, sortUsers } = sidebarSlice.actions;
 export default sidebarSlice.reducer;

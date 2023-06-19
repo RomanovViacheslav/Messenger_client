@@ -82,7 +82,7 @@ const ScrollbarTheme = {
       styleOverrides: {
         html: {
           '& ::-webkit-scrollbar': {
-            width: '10px',
+            width: '6px',
           },
           '& ::-webkit-scrollbar-track': {
             background: ColorTheme.palette.primary.dark,

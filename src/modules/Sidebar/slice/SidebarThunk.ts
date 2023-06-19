@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { log } from 'console';
 import { SidebarState } from '../Sidebar.type';
 import { UserEntity } from '../../../domains';
 import { mapAllUsers } from '../helpers';
-import {
-  ChatMessageResponseSuccess,
-  UserAgentInstance,
-} from '../../../network';
-import { isLastMessage, setLastMessage } from './SidebarSlice';
+import { ChatMessageResponseSuccess, UserAgentInstance } from '../../../network';
+import { isLastMessage, setLastMessage, sortUsers } from './SidebarSlice';
 
 export const getAllChats = createAsyncThunk(
   'sidebar/getAllChats',
@@ -27,10 +25,25 @@ export const getAllChats = createAsyncThunk(
 
 export const processLastMessage = createAsyncThunk(
   'sidebar/processLastMessage',
-  async (messages: ChatMessageResponseSuccess[] | ChatMessageResponseSuccess, { dispatch }) => {
+  async (
+    messages: ChatMessageResponseSuccess[] | ChatMessageResponseSuccess,
+    { dispatch, getState },
+  ) => {
     const processMessage = (message: ChatMessageResponseSuccess) => {
-      dispatch(setLastMessage({ userId: message.senderId, lastMessage: message.content }));
-      dispatch(setLastMessage({ userId: message.receiverId, lastMessage: message.content }));
+      dispatch(
+        setLastMessage({
+          userId: message.senderId,
+          lastMessage: message.content,
+          date: message.createdAt,
+        }),
+      );
+      dispatch(
+        setLastMessage({
+          userId: message.receiverId,
+          lastMessage: message.content,
+          date: message.createdAt,
+        }),
+      );
     };
 
     if (Array.isArray(messages)) {
@@ -39,5 +52,7 @@ export const processLastMessage = createAsyncThunk(
     } else {
       processMessage(messages);
     }
+
+    dispatch(sortUsers());
   },
 );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { Button, Loader, TextField } from '../../components';
 import { StyledBox, StyledLink, StyledList } from './Sidebar.styled';
@@ -8,12 +8,13 @@ import { ChatListItem } from './components';
 import { tokenActions } from '../../shared';
 import { theme } from '../../theme';
 import { ChatMessageAgentInstance } from '../../network';
-import { getAllChats, processLastMessage } from './slice';
+import { getAllChats, processLastMessage, sortUsers } from './slice';
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
-  const { users, status, isLastMessage } = useAppSelector((state) => state.sidebar);
+  const { users, status, isLastMessage, lastMessages } = useAppSelector((state) => state.sidebar);
   const isConnected = useAppSelector((state) => state.socket.connected);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     dispatch(getAllChats());
@@ -37,7 +38,13 @@ export const Sidebar = () => {
         </Typography>
         <ArrowIcon />
       </StyledLink>
-      <TextField type="text" search placeholder="Search" />
+      <TextField
+        type="text"
+        search
+        placeholder="Search"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
       <Button
         buttonText="Выход"
         onClick={() => {
@@ -48,9 +55,23 @@ export const Sidebar = () => {
         <Loader />
       ) : (
         <StyledList>
-          {users?.map((user) => (
-            <ChatListItem key={user.id} userId={user.id} login={user.login} />
-          ))}
+          {users
+            ?.filter((user) => user.login.includes(searchText))
+            .map((user) => {
+              console.log(typeof lastMessages);
+
+              const chat = lastMessages[Number(user.id)];
+
+              return (
+                <ChatListItem
+                  key={user.id}
+                  userId={user.id}
+                  login={user.login}
+                  lastMessage={chat?.content}
+                  date={chat?.date}
+                />
+              );
+            })}
         </StyledList>
       )}
     </StyledBox>

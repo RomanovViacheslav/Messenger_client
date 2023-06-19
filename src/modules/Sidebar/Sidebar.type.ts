@@ -4,14 +4,20 @@ import { ThemeType } from '../../theme';
 export interface StyledBoxProps {
   theme?: ThemeType;
 }
+
+export interface LastMessage {
+  content: string;
+  date: Date;
+}
+
 interface LastMessages {
-  [userId: number]: string;
+  [userId: number]: LastMessage;
 }
 
 export interface SidebarState {
   status: 'success' | 'error' | 'loading';
   error: string | null;
-  users: Pick<UserEntity, 'id' | 'login'>[] | null;
+  users: Pick<UserEntity, 'id' | 'login'>[];
   lastMessages: LastMessages;
   isLastMessage: boolean;
 }

@@ -7,13 +7,17 @@ export const StyledList = styled(List)<StyledBoxProps>(({ theme }) => ({
   padding: 0,
   paddingTop: 14,
   margin: '0px -10px',
-
+  height: '100%',
+  overflow: 'auto',
 }));
 
 export const StyledBox = styled(Box)<StyledBoxProps>(({ theme }) => ({
   width: '310px',
   padding: '21px 10px',
-  // flexShrink: 0,
+  flexShrink: 0,
+  height: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
 }));
 
 export const StyledLink = styled(Link)({
@@ -28,4 +32,4 @@ export const StyledLink = styled(Link)({
   '& > *:not(:last-child)': {
     marginRight: '8px',
   },
-  });
+});

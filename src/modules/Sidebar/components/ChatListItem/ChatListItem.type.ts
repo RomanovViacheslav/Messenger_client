@@ -5,6 +5,7 @@ export interface ChatListItemProps {
   login: string;
   img?: string;
   lastMessage?: string;
+  date?: Date;
 }
 
 export interface StyledLinkProps {
