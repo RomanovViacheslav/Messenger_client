@@ -18,9 +18,15 @@ export const ChatView = memo(() => {
 
   useEffect(() => {
     ChatMessageAgentInstance.on('messageCreated', (message) => {
-      dispatch(addMessage(message));
+      console.log(message);
+      console.log(id);
+      if (message.senderId === Number(id) || message.receiverId === Number(id)) {
+        console.log(222);
+
+        dispatch(addMessage(message));
+      }
     });
-  }, [isConnected]);
+  }, [isConnected, id]);
 
   useEffect(() => {
     dispatch(getMessagesByUsers(Number(id)));
@@ -46,13 +52,7 @@ export const ChatView = memo(() => {
     <StyledBox bgcolor="light">
       {id && filteredUser && <HeaderChatView userId={filteredUser.id} login={filteredUser.login} />}
       {!id ? (
-        <Typography
-          variant="body1"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100%"
-        >
+        <Typography variant="body1" display="flex" justifyContent="center" marginTop="25%">
           Выберите чат, чтобы отправить сообщение
         </Typography>
       ) : (

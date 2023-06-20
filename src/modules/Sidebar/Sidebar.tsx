@@ -1,18 +1,18 @@
 import React, { useEffect, useState, memo } from 'react';
-import { Typography } from '@mui/material';
-import { Button, Loader, TextField } from '../../components';
-import { StyledBox, StyledLink, StyledList } from './Sidebar.styled';
+import { Box, Typography } from '@mui/material';
+import { Loader, TextField } from '../../components';
+import { StyledBox, StyledButton, StyledLink, StyledList } from './Sidebar.styled';
 import { ArrowIcon } from '../../ui';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { ChatListItem } from './components';
 import { tokenActions } from '../../shared';
 import { theme } from '../../theme';
 import { ChatMessageAgentInstance } from '../../network';
-import { getAllChats, processLastMessage, sortUsers } from './slice';
+import { getAllChats, processLastMessage, resetSidebar } from './slice';
 
 export const Sidebar = memo(() => {
   const dispatch = useAppDispatch();
-  const { users, status, isLastMessage, lastMessages, unreadMessages } = useAppSelector(
+  const { users, isLastMessage, lastMessages, unreadMessages } = useAppSelector(
     (state) => state.sidebar,
   );
   const isConnected = useAppSelector((state) => state.socket.connected);
@@ -30,16 +30,28 @@ export const Sidebar = memo(() => {
     ChatMessageAgentInstance.on('lastMessage', (messages) => {
       dispatch(processLastMessage(messages));
     });
+    return () => {
+      dispatch(resetSidebar());
+    };
   }, [isConnected]);
 
   return (
     <StyledBox>
-      <StyledLink to="#">
-        <Typography variant="body1" color={theme.palette.text.secondary}>
-          Profile
-        </Typography>
-        <ArrowIcon />
-      </StyledLink>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <StyledButton
+          onClick={() => {
+            dispatch(tokenActions.logout());
+          }}
+        >
+          Выход
+        </StyledButton>
+        <StyledLink to="#">
+          <Typography variant="body1" color={theme.palette.text.secondary}>
+            Profile
+          </Typography>
+          <ArrowIcon />
+        </StyledLink>
+      </Box>
       <TextField
         type="text"
         search
@@ -47,12 +59,7 @@ export const Sidebar = memo(() => {
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
-      <Button
-        buttonText="Выход"
-        onClick={() => {
-          dispatch(tokenActions.logout());
-        }}
-      />
+
       {!isLastMessage ? (
         <Loader />
       ) : (

@@ -14,7 +14,7 @@ export interface TextFieldProps extends InputBaseProps {
 }
 
 export interface StyledTextFieldProps {
-  search?: boolean;
+  search?: string;
   type?: string;
   theme?: ThemeType;
 }

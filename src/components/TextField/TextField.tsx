@@ -33,7 +33,7 @@ export const TextField = memo(
         value={value}
         onChange={onChange}
         error={error}
-        search={search}
+        search={String(search)}
         {...props}
       />
       {error && <StyledFormHelperText error>{errorText}</StyledFormHelperText>}

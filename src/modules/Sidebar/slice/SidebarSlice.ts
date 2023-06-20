@@ -62,6 +62,7 @@ const sidebarSlice = createSlice({
 
       state.users = sortedUsers;
     },
+    resetSidebar: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -80,6 +81,12 @@ const sidebarSlice = createSlice({
   },
 });
 
-export const { setLastMessage, isLastMessage, sortUsers, resetUnreadMessages, setUnreadMessage } =
-  sidebarSlice.actions;
+export const {
+  setLastMessage,
+  isLastMessage,
+  sortUsers,
+  resetUnreadMessages,
+  setUnreadMessage,
+  resetSidebar,
+} = sidebarSlice.actions;
 export default sidebarSlice.reducer;

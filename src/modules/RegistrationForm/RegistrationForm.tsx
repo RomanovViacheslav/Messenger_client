@@ -19,8 +19,6 @@ export const RegistrationForm = () => {
     (state) => state.registration,
   );
 
-  console.log(localStorage.getItem(USER_LOCALSTORAGE_KEY));
-
   useEffect(() => {
     if (isSuccess) {
       navigate('/login');

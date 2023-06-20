@@ -6,8 +6,8 @@ export const StyledInput = styled(InputBase)<StyledTextFieldProps>(({ theme, typ
   'label + &': {},
   '& .MuiInputBase-input': {
     position: 'relative',
-    marginTop: search ? 0 : 8,
-    background: search ? theme.palette.primary.main : theme.palette.primary.dark,
+    marginTop: search === 'true' ? 0 : 8,
+    background: search === 'true' ? theme.palette.primary.main : theme.palette.primary.dark,
     borderRadius: 5,
     height: 33,
     padding: 10,
@@ -32,7 +32,7 @@ export const StyledInputLabel = styled(InputLabel)<StyledTextFieldProps>(({ them
 
 export const StyledFormHelperText = styled(FormHelperText)<StyledTextFieldProps>(
   ({ theme, search }) => ({
-  marginTop: search ? 0 : 7,
+  marginTop: search === 'true' ? 0 : 7,
   fontWeight: 400,
   fontSize: 10,
   lineHeight: '8px',
@@ -42,6 +42,6 @@ export const StyledFormHelperText = styled(FormHelperText)<StyledTextFieldProps>
 export const StyledFormControl = styled(FormControl)<StyledTextFieldProps>(({ theme, search }) => ({
   width: '100%',
   '&:last-child': {
-    marginBottom: search ? 0 : '110px',
+    marginBottom: search === 'true' ? 0 : '110px',
   },
 }));

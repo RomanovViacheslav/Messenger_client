@@ -1,4 +1,4 @@
-import { Box, List } from '@mui/material';
+import { Box, List, Button } from '@mui/material';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { StyledBoxProps } from './Sidebar.type';
@@ -33,3 +33,9 @@ export const StyledLink = styled(Link)({
     marginRight: '8px',
   },
 });
+export const StyledButton = styled(Button)<StyledBoxProps>(({ theme }) => ({
+  all: 'unset',
+  cursor: 'pointer',
+  color: theme.palette.text.secondary,
+  paddingBottom: '23px',
+}));

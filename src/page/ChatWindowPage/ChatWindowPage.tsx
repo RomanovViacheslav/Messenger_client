@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import { ChatView, Sidebar } from '../../modules';
-import { ChatMessageAgentInstance } from '../../network';
-import { USER_LOCALSTORAGE_KEY } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { connect, disconnect } from '../../shared';
 
