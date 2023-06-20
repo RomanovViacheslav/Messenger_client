@@ -1,2 +1,2 @@
-export { default as sidebarSlice, setLastMessage, isLastMessage, sortUsers } from './SidebarSlice';
+export { default as sidebarSlice, setLastMessage, isLastMessage, sortUsers, resetUnreadMessages, setUnreadMessage } from './SidebarSlice';
 export * from './SidebarThunk';

@@ -9,6 +9,7 @@ const initialState: SidebarState = {
   users: [],
   lastMessages: {},
   isLastMessage: false,
+  unreadMessages: {},
 };
 
 const sidebarSlice = createSlice({
@@ -25,8 +26,22 @@ const sidebarSlice = createSlice({
         },
       };
     },
+    setUnreadMessage: (state, action) => {
+      const { userId } = action.payload;
+
+      if (state.unreadMessages[userId]) {
+        state.unreadMessages[userId] += 1;
+      } else {
+        state.unreadMessages[userId] = 1;
+      }
+    },
+
     isLastMessage: (state) => {
       state.isLastMessage = true;
+    },
+    resetUnreadMessages: (state, action) => {
+      const userId = action.payload;
+      state.unreadMessages[userId] = 0;
     },
     sortUsers: (state) => {
       const sortedUsers = [...state.users].sort((a, b) => {
@@ -65,5 +80,6 @@ const sidebarSlice = createSlice({
   },
 });
 
-export const { setLastMessage, isLastMessage, sortUsers } = sidebarSlice.actions;
+export const { setLastMessage, isLastMessage, sortUsers, resetUnreadMessages, setUnreadMessage } =
+  sidebarSlice.actions;
 export default sidebarSlice.reducer;

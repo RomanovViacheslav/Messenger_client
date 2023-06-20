@@ -14,10 +14,15 @@ interface LastMessages {
   [userId: number]: LastMessage;
 }
 
+interface UnreadMessages {
+  [userId: number]: number;
+}
+
 export interface SidebarState {
   status: 'success' | 'error' | 'loading';
   error: string | null;
   users: Pick<UserEntity, 'id' | 'login'>[];
   lastMessages: LastMessages;
   isLastMessage: boolean;
+  unreadMessages: UnreadMessages;
 }

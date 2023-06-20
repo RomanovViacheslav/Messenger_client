@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Typography } from '@mui/material';
 import { Button, Loader, TextField } from '../../components';
 import { StyledBox, StyledLink, StyledList } from './Sidebar.styled';
@@ -10,9 +10,11 @@ import { theme } from '../../theme';
 import { ChatMessageAgentInstance } from '../../network';
 import { getAllChats, processLastMessage, sortUsers } from './slice';
 
-export const Sidebar = () => {
+export const Sidebar = memo(() => {
   const dispatch = useAppDispatch();
-  const { users, status, isLastMessage, lastMessages } = useAppSelector((state) => state.sidebar);
+  const { users, status, isLastMessage, lastMessages, unreadMessages } = useAppSelector(
+    (state) => state.sidebar,
+  );
   const isConnected = useAppSelector((state) => state.socket.connected);
   const [searchText, setSearchText] = useState('');
 
@@ -58,8 +60,6 @@ export const Sidebar = () => {
           {users
             ?.filter((user) => user.login.includes(searchText))
             .map((user) => {
-              console.log(typeof lastMessages);
-
               const chat = lastMessages[Number(user.id)];
 
               return (
@@ -69,6 +69,7 @@ export const Sidebar = () => {
                   login={user.login}
                   lastMessage={chat?.content}
                   date={chat?.date}
+                  unreadMessages={unreadMessages[Number(user.id)]}
                 />
               );
             })}
@@ -76,4 +77,4 @@ export const Sidebar = () => {
       )}
     </StyledBox>
   );
-};
+});

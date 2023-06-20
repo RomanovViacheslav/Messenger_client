@@ -4,7 +4,7 @@ import { SidebarState } from '../Sidebar.type';
 import { UserEntity } from '../../../domains';
 import { mapAllUsers } from '../helpers';
 import { ChatMessageResponseSuccess, UserAgentInstance } from '../../../network';
-import { isLastMessage, setLastMessage, sortUsers } from './SidebarSlice';
+import { isLastMessage, setLastMessage, setUnreadMessage, sortUsers } from './SidebarSlice';
 
 export const getAllChats = createAsyncThunk(
   'sidebar/getAllChats',
@@ -51,6 +51,8 @@ export const processLastMessage = createAsyncThunk(
       dispatch(isLastMessage());
     } else {
       processMessage(messages);
+      dispatch(setUnreadMessage({ userId: messages.senderId }));
+      dispatch(setUnreadMessage({ userId: messages.receiverId }));
     }
 
     dispatch(sortUsers());

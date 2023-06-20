@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, memo, useRef } from 'react';
 import { Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { StyledBox, StyledBoxMessage } from './ChatView.styled';
@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../helpers';
 import { ChatMessageAgentInstance } from '../../network';
 import { addMessage, getMessagesByUsers, sendMessage } from './slice';
 
-export const ChatView = () => {
+export const ChatView = memo(() => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { users } = useAppSelector((state) => state.sidebar);
@@ -63,4 +63,4 @@ export const ChatView = () => {
       {id && <FooterChatView onSendMessage={handleSendMessage} />}
     </StyledBox>
   );
-};
+});
