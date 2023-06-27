@@ -18,11 +18,7 @@ export const ChatView = memo(() => {
 
   useEffect(() => {
     ChatMessageAgentInstance.on('messageCreated', (message) => {
-      console.log(message);
-      console.log(id);
       if (message.senderId === Number(id) || message.receiverId === Number(id)) {
-        console.log(222);
-
         dispatch(addMessage(message));
       }
     });

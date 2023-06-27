@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { USER_LOCALSTORAGE_KEY } from '../../../constants';
+import { USER_LOCALSTORAGE_KEY } from '../../constants';
 import { UserAgentInstance } from '../../../network';
 
 const initialState = {

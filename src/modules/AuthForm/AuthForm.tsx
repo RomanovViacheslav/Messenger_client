@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import { useFormik } from 'formik';
 import { Typography } from '@mui/material';
 import { Button, Link, TextField } from '../../components';
-import { PATHS } from '../../constants';
+import { PATHS } from '../../shared/constants';
 import { validationSchema } from './helpers';
 import { INITIAL_VALUES } from './AuthForm.constants';
 import { useAppDispatch, useAppSelector } from '../../helpers';

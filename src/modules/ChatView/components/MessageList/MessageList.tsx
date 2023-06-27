@@ -7,7 +7,6 @@ import { DateSeparator } from '../DateSeparator';
 
 export const MessageList = memo(({ messages, filteredUser }: MessageListProps) => {
   const currentDateRef = useRef('');
-  console.log(messages);
 
   return (
     <>

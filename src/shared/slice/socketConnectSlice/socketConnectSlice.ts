@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ChatMessageAgentInstance } from '../../../network';
-import { USER_LOCALSTORAGE_KEY } from '../../../constants';
+import { USER_LOCALSTORAGE_KEY } from '../../constants';
 
 interface SocketState {
   connected: boolean;

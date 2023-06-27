@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AuthFormState } from '../AuthForm.types';
 import { UserLoginEntity } from '../../../domains';
-import { USER_LOCALSTORAGE_KEY } from '../../../constants';
+import { USER_LOCALSTORAGE_KEY } from '../../../shared/constants';
 import { tokenActions } from '../../../shared';
 import { UserAgentInstance } from '../../../network';
 

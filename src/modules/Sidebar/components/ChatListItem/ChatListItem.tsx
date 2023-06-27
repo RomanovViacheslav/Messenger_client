@@ -6,7 +6,7 @@ import { generateColor, useAppDispatch } from '../../../../helpers';
 import { StyledLink, StyledListItem } from './ChatListItem.styled';
 import { ChatListItemProps } from './ChatListItem.type';
 import { theme } from '../../../../theme';
-import { PATHS } from '../../../../constants';
+import { PATHS } from '../../../../shared/constants';
 import { getDisplayDate, truncateText } from '../../helpers';
 import { MessageIndicator } from '../MessageIndicator';
 import { resetUnreadMessages } from '../../slice';

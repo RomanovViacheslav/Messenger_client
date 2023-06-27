@@ -9,7 +9,7 @@ import { UserCreationEntity } from '../../domains';
 import { useAppDispatch, useAppSelector } from '../../helpers';
 import { nextStep, registerReset, registerUser } from './slice';
 import { validationSchemas } from './helpers';
-import { PATHS, USER_LOCALSTORAGE_KEY } from '../../constants';
+import { PATHS, USER_LOCALSTORAGE_KEY } from '../../shared/constants';
 
 export const RegistrationForm = () => {
   const navigate = useNavigate();

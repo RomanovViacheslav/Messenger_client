@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../helpers';
-import { PATHS } from '../../constants';
+import { PATHS } from '../constants';
 import { Loader } from '../../components';
 
 export const AuthHoc: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {

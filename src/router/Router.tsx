@@ -1,6 +1,6 @@
 import React, { useEffect, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { PATHS } from '../constants';
+import { PATHS } from '../shared/constants';
 import { AuthLayout } from '../ui';
 import { tokenActions } from '../shared';
 import { useAppDispatch, useAppSelector } from '../helpers';
