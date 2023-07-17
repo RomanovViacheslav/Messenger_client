@@ -20,14 +20,14 @@ export const MessageList = memo(({ messages, filteredUser }: MessageListProps) =
 
         if (message.senderId !== filteredUser?.id) {
           return (
-            <React.Fragment key={message.id}>
+            <React.Fragment key={`${message.id}-${message.senderId}-${message.receiverId}`}>
               {renderDateSeparator && <DateSeparator date={formattedDate} />}
               <MessageSender content={message.content} time={time} />
             </React.Fragment>
           );
         }
         return (
-          <React.Fragment key={message.id}>
+          <React.Fragment key={`${message.id}-${message.senderId}-${message.receiverId}`}>
             {renderDateSeparator && <DateSeparator date={formattedDate} />}
             <MessageRecipient content={message.content} time={time} />
           </React.Fragment>

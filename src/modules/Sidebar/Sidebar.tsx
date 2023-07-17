@@ -15,6 +15,7 @@ export const Sidebar = memo(() => {
   const { users, isLastMessage, lastMessages, unreadMessages } = useAppSelector(
     (state) => state.sidebar,
   );
+  const message = useAppSelector((state) => state.lastMessage.message);
   const isConnected = useAppSelector((state) => state.socket.connected);
   const [searchText, setSearchText] = useState('');
 
@@ -23,9 +24,12 @@ export const Sidebar = memo(() => {
   }, []);
 
   useEffect(() => {
-    ChatMessageAgentInstance.on('messageCreated', (message) => {
+    if (message) {
       dispatch(processLastMessage(message));
-    });
+    }
+  }, [message]);
+
+  useEffect(() => {
     ChatMessageAgentInstance.getLastMessages();
     ChatMessageAgentInstance.on('lastMessage', (messages) => {
       dispatch(processLastMessage(messages));

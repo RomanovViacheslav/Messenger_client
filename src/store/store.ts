@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { registrationSlice, loginSlice, sidebarSlice, chatViewSlice } from '../modules';
-import { tokenSlice, socketConnectSlice } from '../shared';
+import { tokenSlice, socketConnectSlice, lastMessageSlice } from '../shared';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +10,7 @@ export const store = configureStore({
     sidebar: sidebarSlice,
     chat: chatViewSlice,
     socket: socketConnectSlice,
+    lastMessage: lastMessageSlice,
   },
 });
 

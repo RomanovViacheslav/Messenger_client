@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ChatViewState } from '../ChatView.type';
 import { MessageEntity } from '../../../domains';
-import { ChatMessageAgentInstance, ChatMessageResponseSuccess } from '../../../network';
-import { mapMessages, mapOneMessageToClient } from '../helpers';
+import { ChatMessageResponseSuccess } from '../../../network';
+import { mapOneMessageToClient } from '../helpers';
 
 const initialState: ChatViewState = {
   messages: [],
