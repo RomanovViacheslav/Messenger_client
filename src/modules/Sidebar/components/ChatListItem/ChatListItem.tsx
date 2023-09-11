@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React, { memo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { log } from 'console';
 import { UserAvatar } from '../../../../components';
 import { generateColor, useAppDispatch } from '../../../../helpers';
 import { StyledLink, StyledListItem } from './ChatListItem.styled';
@@ -22,7 +23,7 @@ export const ChatListItem = memo(
       if (id === userId) {
         dispatch(resetUnreadMessages(userId));
       }
-    }, [id, userId, lastMessage]);
+    }, [id, userId, date]);
 
     const displayText = lastMessage ? truncateText(lastMessage, 40) : 'напишите сообщение';
     const displayDate = getDisplayDate(date);

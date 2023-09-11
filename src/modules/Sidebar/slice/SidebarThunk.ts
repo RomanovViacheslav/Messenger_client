@@ -52,7 +52,7 @@ export const processLastMessage = createAsyncThunk(
     } else {
       processMessage(messages);
       dispatch(setUnreadMessage({ userId: messages.senderId }));
-      dispatch(setUnreadMessage({ userId: messages.receiverId }));
+      // dispatch(setUnreadMessage({ userId: messages.receiverId }));
     }
 
     dispatch(sortUsers());

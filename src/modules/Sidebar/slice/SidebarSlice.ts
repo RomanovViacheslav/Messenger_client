@@ -1,16 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SidebarState } from '../Sidebar.type';
-
+import { createSlice } from '@reduxjs/toolkit';
+import { initialState } from './SidebarSlice.constants';
 import { getAllChats } from './SidebarThunk';
-
-const initialState: SidebarState = {
-  status: 'loading',
-  error: '',
-  users: [],
-  lastMessages: {},
-  isLastMessage: false,
-  unreadMessages: {},
-};
 
 const sidebarSlice = createSlice({
   name: 'sidebar',
